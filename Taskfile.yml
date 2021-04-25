@@ -1,0 +1,20 @@
+version: '3'
+
+dotenv: ['.env']
+
+tasks:
+  migrate-create:
+    cmds:
+      - migrate create -ext sql -dir db/migrations -seq $NAME
+  migrate:
+    cmds:
+      - migrate -database $POSTGRESQL_URL -path db/migrations up
+  migrate-down:
+    cmds:
+      - migrate -database $POSTGRESQL_URL -path db/migrations down
+  gqlgen:
+    cmds:
+      - go run github.com/99designs/gqlgen
+  start:
+    cmds:
+      - go run server.go
